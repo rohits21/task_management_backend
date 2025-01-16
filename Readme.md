@@ -248,5 +248,5 @@ Delete task by id.
 2. Use appropriate environment variables for different environments (development, production).
 3. PM2 provides robust process management, so prefer it for production deployment.
 
-For further assistance, feel free to reach out to the me rohit.sahu@nagarro.com.
+For further assistance, feel free to reach out to me rohit.sahu@nagarro.com.
 
