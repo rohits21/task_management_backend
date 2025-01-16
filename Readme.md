@@ -122,7 +122,7 @@ Logs are generated using Winston and stored in a separate file `logs/app.log`. T
 
 ## Example .env Configuration
 
-Below is an example structure of the `.env` file without revealing sensitive values:
+Below is an example structure of the `.env` file 
 
 ```env
 PORT=<your-port>
@@ -151,7 +151,7 @@ REDIS_PORT=<your-redis-port>
 1. Ensure all external dependencies (Redis, RabbitMQ, MySQL) are properly configured and accessible from your environment.
 2. Use `.env` files responsibly and avoid committing them to version control.
 
-For further assistance, feel free to reach out to the me ###rohit.sahu@nagarro.com.
+For further assistance, feel free to reach out to the me `rohit.sahu@nagarro.com`.
 
 ---
 
