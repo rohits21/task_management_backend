@@ -39,8 +39,8 @@ To install all required packages, follow the instructions in the Project Setup G
 
 ### Step 1: Clone the Repository
 ```bash
-git clone <repository_url>
-cd <repository_name>
+git clone https://github.com/rohits21/task_management_backend.git
+cd task_management_backend
 ```
 
 ### Step 2: Install Dependencies
@@ -139,6 +139,47 @@ REDIS_PORT=6379
 
 ## API Endpoints
 
+### GET `/tasks`
+Get all tasks.
+
+**Response:**
+```json
+{
+  "id": 1,
+  "title": "Task 10",
+  "description": "Task 10 description",
+  "status": "In Progress",
+  "priority": "Low",
+  "createdAt": "2025-01-16T10:00:00.000Z",
+  "updatedAt": "2025-01-16T10:00:00.000Z"
+},
+{
+  "id": 2,
+  "title": "Task 10",
+  "description": "Task 10 description",
+  "status": "In Progress",
+  "priority": "Low",
+  "createdAt": "2025-01-16T10:00:00.000Z",
+  "updatedAt": "2025-01-16T10:00:00.000Z"
+}
+```
+
+### GET `/tasks/:id`
+Get task by id.
+
+**Response:**
+```json
+{
+  "id": 1,
+  "title": "Task 10",
+  "description": "Task 10 description",
+  "status": "In Progress",
+  "priority": "Low",
+  "createdAt": "2025-01-16T10:00:00.000Z",
+  "updatedAt": "2025-01-16T10:00:00.000Z"
+}
+```
+
 ### POST `/tasks`
 Create a new task.
 
@@ -190,6 +231,16 @@ Update an existing task.
   "updatedAt": "2025-01-16T12:00:00.000Z"
 }
 ```
+
+### DELETE `/tasks/:id`
+Delete task by id.
+
+**Response:**
+```{
+  "message": "Task with ID 1 deleted successfully."
+}```
+
+
 
 ---
 
