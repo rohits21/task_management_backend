@@ -1,158 +1,202 @@
 # Task Management Application
 
 ## Introduction
-
-The **Task Management Application** is a robust, scalable platform designed to manage and organize tasks efficiently. Built using the NestJS framework, it leverages Redis for caching, RabbitMQ for message queuing, and MySQL for persistent storage. The application supports advanced logging and can be monitored using PM2 for production readiness.
+The Task Management Application is a comprehensive solution for managing tasks efficiently. It provides seamless integration with RabbitMQ, Redis, and MySQL, ensuring robust performance and scalability. This guide will help you set up and run the project locally, both with and without PM2, and configure it to connect with external services.
 
 ---
 
 ## Prerequisites
+Ensure the following tools and services are installed on your system:
 
-Before setting up the application, ensure you have the following installed on your system:
+1. **Node.js** (v16 or higher) and **npm**
+   - Download and install from [Node.js Official Website](https://nodejs.org/).
 
-1. **Node.js** (>=16.x) and **npm** (>=8.x)
-2. **MySQL** (>=8.x)
-3. **Redis** (>=6.x)
-4. **RabbitMQ** (>=3.x)
-5. **PM2** (for process management)
+2. **MySQL** (v5.7 or higher)
+   - Install MySQL and ensure the server is running.
+   - Set up a database named `tasksmanagementdb`.
+
+3. **RabbitMQ** (v3.8 or higher)
+   - Install RabbitMQ and ensure the service is running.
+   - Default credentials: `guest`/`guest`.
+
+4. **Redis** (v6 or higher)
+   - Install Redis and ensure the service is running.
 
 ---
 
-## Installation Guide
+## Dependencies
+The project uses the following dependencies:
+- NestJS
+- Redis
+- RabbitMQ
+- PM2 for process management
+
+To install all required packages, follow the instructions in the Project Setup Guide.
+
+---
+
+## Project Setup Guide
 
 ### Step 1: Clone the Repository
-
 ```bash
-git clone https://github.com/rohits21/task_management_backend
-cd task_management_backend
+git clone <repository_url>
+cd <repository_name>
 ```
 
 ### Step 2: Install Dependencies
-
-Run the following command to install all necessary packages:
-
+Ensure you are in the project directory, then run:
 ```bash
 npm install
 ```
 
-### Step 3: Environment Configuration
-
-Create a `.env` file in the root of the project and add your environment-specific configuration. Below is an example structure:
-
-```env
-PORT=<application-port>
-DB_HOST=<mysql-host>
-DB_PORT=<mysql-port>
-DB_USER=<mysql-username>
-DB_PASS=<mysql-password>
-DB_NAME=<mysql-database>
-
-RABBITMQ_HOST=<rabbitmq-host>
-RABBITMQ_PORT=<rabbitmq-port>
-RABBITMQ_USERNAME=<rabbitmq-username>
-RABBITMQ_PASSWORD=<rabbitmq-password>
-RABBITMQ_EXCHANGE=<rabbitmq-exchange>
-RABBITMQ_QUEUE=<rabbitmq-queue>
-RABBITMQ_ROUTINGKEY=<rabbitmq-routing-key>
-
-REDIS_HOST=<redis-host>
-REDIS_PORT=<redis-port>
+### Step 3: Build the Project
+Build the project to generate the `dist/` directory:
+```bash
+npm run build
 ```
 
-### Step 4: Database Setup
+---
 
-1. Start MySQL and create a new database:
+## Connecting with Redis, RabbitMQ, and MySQL
 
-```sql
-CREATE DATABASE tasksmanagementdb;
-```
+### MySQL Configuration
+1. Ensure MySQL is running and create a database:
+   ```sql
+   CREATE DATABASE tasksmanagementdb;
+   ```
+2. Update the `.env` file with your MySQL credentials.
 
-2. Update the `.env` file with your MySQL configuration.
-3. Run migrations or initialize the database schema if necessary.
+### RabbitMQ Configuration
+1. Ensure RabbitMQ is running.
+2. Verify the default credentials or create a new user if required.
+3. Update the `.env` file with RabbitMQ credentials and exchange/queue details.
 
-### Step 5: Connect RabbitMQ and Redis
-
-Ensure RabbitMQ and Redis are running locally or on configured hosts. Update the `.env` file with their respective connection details.
+### Redis Configuration
+1. Ensure Redis is running.
+2. Update the `.env` file with Redis host and port.
 
 ---
 
 ## Running the Application
 
-### Using PM2
-
-1. Ensure PM2 is installed globally:
-
-```bash
-npm install -g pm2
-```
-
-2. Start the application using the PM2 ecosystem file:
-
-```bash
-pm2 start pm2-ecosystem.config.ts
-```
-
-3. Monitor the application:
-
-```bash
-pm2 status
-```
-
-4. View logs:
-
-```bash
-pm2 logs
-```
-
 ### Without PM2
-
 Start the application in development mode:
-
 ```bash
 npm run start:dev
 ```
 
+Or start in production mode:
+```bash
+npm run start:prod
+```
+
+### With PM2
+Use the provided PM2 configuration file to run the application:
+1. Start the application:
+   ```bash
+   pm2 start pm2-ecosystem.config.ts --env production
+   ```
+2. Monitor logs:
+   ```bash
+   pm2 logs
+   ```
+3. Save the PM2 process list:
+   ```bash
+   pm2 save
+   ```
+4. Set PM2 to start on boot:
+   ```bash
+   pm2 startup
+   ```
+
 ---
 
-## Logging
-
-Logs are generated using Winston and stored in a separate file `logs/app.log`. They include detailed information about API requests, responses, and errors with timestamps.
-
----
-
-## Example .env Configuration
-
-Below is an example structure of the `.env` file 
+## Example .env File
+Below is a sample `.env` file configuration:
 
 ```env
-PORT=<your-port>
-DB_HOST=<your-database-host>
-DB_PORT=<your-database-port>
-DB_USER=<your-database-user>
-DB_PASS=<your-database-password>
-DB_NAME=<your-database-name>
+PORT=2100
 
-RABBITMQ_HOST=<your-rabbitmq-host>
-RABBITMQ_PORT=<your-rabbitmq-port>
-RABBITMQ_USERNAME=<your-rabbitmq-username>
-RABBITMQ_PASSWORD=<your-rabbitmq-password>
-RABBITMQ_EXCHANGE=<your-rabbitmq-exchange>
-RABBITMQ_QUEUE=<your-rabbitmq-queue>
-RABBITMQ_ROUTINGKEY=<your-rabbitmq-routing-key>
+DB_HOST=localhost
+DB_PORT=3306
+DB_USER=root
+DB_PASS=root
+DB_NAME=tasksmanagementdb
 
-REDIS_HOST=<your-redis-host>
-REDIS_PORT=<your-redis-port>
+RABBITMQ_HOST=localhost
+RABBITMQ_PORT=5672
+RABBITMQ_USERNAME=guest
+RABBITMQ_PASSWORD=guest
+RABBITMQ_EXCHANGE=task_exchange
+RABBITMQ_QUEUE=task_notifications
+RABBITMQ_ROUTINGKEY=task.notification
+
+REDIS_HOST=localhost
+REDIS_PORT=6379
+```
+
+---
+
+## API Endpoints
+
+### POST `/tasks`
+Create a new task.
+
+**Request Body:**
+```json
+{
+  "title": "Task 10",
+  "description": "Task 10 description",
+  "status": "In Progress",
+  "priority": "Low"
+}
+```
+
+**Response:**
+```json
+{
+  "id": 1,
+  "title": "Task 10",
+  "description": "Task 10 description",
+  "status": "In Progress",
+  "priority": "Low",
+  "createdAt": "2025-01-16T10:00:00.000Z",
+  "updatedAt": "2025-01-16T10:00:00.000Z"
+}
+```
+
+### PUT `/tasks/:id`
+Update an existing task.
+
+**Request Body:**
+```json
+{
+  "title": "Updated Task Title",
+  "description": "Updated description",
+  "status": "Completed",
+  "priority": "High"
+}
+```
+
+**Response:**
+```json
+{
+  "id": 1,
+  "title": "Updated Task Title",
+  "description": "Updated description",
+  "status": "Completed",
+  "priority": "High",
+  "createdAt": "2025-01-16T10:00:00.000Z",
+  "updatedAt": "2025-01-16T12:00:00.000Z"
+}
 ```
 
 ---
 
 ## Additional Notes
+1. Ensure all services (MySQL, RabbitMQ, Redis) are running and accessible.
+2. Use appropriate environment variables for different environments (development, production).
+3. PM2 provides robust process management, so prefer it for production deployment.
 
-1. Ensure all external dependencies (Redis, RabbitMQ, MySQL) are properly configured and accessible from your environment.
-2. Use `.env` files responsibly and avoid committing them to version control.
-
-For further assistance, feel free to reach out to the me `rohit.sahu@nagarro.com`.
-
----
-
+For further assistance, feel free to reach out to the me rohit.sahu@nagarro.com.
 
