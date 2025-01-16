@@ -53,6 +53,7 @@ export class BrokerService implements OnModuleInit, OnModuleDestroy{
         }
       }
     
+      // Publish the message
       async publishToTaskQueue(message: string): Promise<void> {
         if (!this.channel) {
           throw new Error('RabbitMQ channel is not initialized.');
@@ -77,6 +78,7 @@ export class BrokerService implements OnModuleInit, OnModuleDestroy{
       }
 
 
+      
       async onModuleDestroy() {
         if (this.channel) {
           await this.channel.close();

@@ -16,7 +16,7 @@ export class AppService {
 
   ) { }
 
-
+  // Key used for caching tasks
   private readonly CACHE_KEY = 'alltasks:1';
 
 

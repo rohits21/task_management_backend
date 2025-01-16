@@ -24,8 +24,10 @@ import { LoggingMiddleware } from './middlewares/logging.middleware';
   controllers: [AppController,TasksController],
   providers: [AppService, {provide : APP_FILTER, useClass: HttpExceptionFilter}],
 })
+
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
+     // Apply LoggingMiddleware globally to log all incoming requests.
     consumer.apply(LoggingMiddleware).forRoutes('*');
   }
 }

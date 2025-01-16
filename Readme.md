@@ -94,7 +94,7 @@ npm run start:prod
 Use the provided PM2 configuration file to run the application:
 1. Start the application:
    ```bash
-   pm2 start pm2-ecosystem.config.ts --env production
+   pm2 start pm2-ecosystem.config.ts
    ```
 2. Monitor logs:
    ```bash
@@ -115,24 +115,23 @@ Use the provided PM2 configuration file to run the application:
 Below is a sample `.env` file configuration:
 
 ```env
-PORT=2100
+PORT=<application-port>
+DB_HOST=<mysql-host>
+DB_PORT=<mysql-port>
+DB_USER=<mysql-username>
+DB_PASS=<mysql-password>
+DB_NAME=<mysql-database>
 
-DB_HOST=localhost
-DB_PORT=3306
-DB_USER=root
-DB_PASS=root
-DB_NAME=tasksmanagementdb
+RABBITMQ_HOST=<rabbitmq-host>
+RABBITMQ_PORT=<rabbitmq-port>
+RABBITMQ_USERNAME=<rabbitmq-username>
+RABBITMQ_PASSWORD=<rabbitmq-password>
+RABBITMQ_EXCHANGE=<rabbitmq-exchange>
+RABBITMQ_QUEUE=<rabbitmq-queue>
+RABBITMQ_ROUTINGKEY=<rabbitmq-routing-key>
 
-RABBITMQ_HOST=localhost
-RABBITMQ_PORT=5672
-RABBITMQ_USERNAME=guest
-RABBITMQ_PASSWORD=guest
-RABBITMQ_EXCHANGE=task_exchange
-RABBITMQ_QUEUE=task_notifications
-RABBITMQ_ROUTINGKEY=task.notification
-
-REDIS_HOST=localhost
-REDIS_PORT=6379
+REDIS_HOST=<redis-host>
+REDIS_PORT=<redis-port>
 ```
 
 ---
@@ -236,11 +235,11 @@ Update an existing task.
 Delete task by id.
 
 **Response:**
-```{
+```
+{
   "message": "Task with ID 1 deleted successfully."
-}```
-
-
+}
+```
 
 ---
 
